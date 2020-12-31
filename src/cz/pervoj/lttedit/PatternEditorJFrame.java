@@ -17,6 +17,7 @@
 package cz.pervoj.lttedit;
 
 import cz.pervoj.lttedit.classes.*;
+import cz.pervoj.lttlib.LTTGetter;
 import java.awt.Toolkit;
 import java.io.File;
 import java.util.ArrayList;
@@ -34,9 +35,11 @@ public class PatternEditorJFrame extends javax.swing.JFrame {
     private PatternController patterns;
     private AbstractTableModel model;
     private int selected = -1;
+    private LTTGetter ltt;
 
     public PatternEditorJFrame(File file, boolean create) {        
         try {
+            ltt = LTTInstancer.getInstance();
             this.file = file;
             init();
             this.patterns = PatternParser.getEmpty("");
@@ -44,20 +47,21 @@ public class PatternEditorJFrame extends javax.swing.JFrame {
             updateTable();
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, e.getMessage(), ltt.getText("error"), JOptionPane.ERROR_MESSAGE);
             exit();
         }
     }
     
     public PatternEditorJFrame(File pattern) {
         try {
+            ltt = LTTInstancer.getInstance();
             file = pattern;
             init();
             patterns = PatternParser.parseFile(pattern);
             updateTable();
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, e.getMessage(), ltt.getText("error"), JOptionPane.ERROR_MESSAGE);
             exit();
         }
     }
@@ -102,7 +106,7 @@ private void init() {
         newLineJButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("LTT Edit");
+        setTitle(ltt.getText("app name"));
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("rsc/icons/lttedit.png")));
         setMinimumSize(new java.awt.Dimension(500, 500));
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -144,7 +148,7 @@ private void init() {
         jScrollPane4.setViewportView(patternsJTable);
 
         updateJButton.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
-        updateJButton.setText("Update list");
+        updateJButton.setText(ltt.getText("update list"));
         updateJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateJButtonActionPerformed(evt);
@@ -157,10 +161,10 @@ private void init() {
         codeJTextField.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
-        jLabel1.setText("Text:");
+        jLabel1.setText(ltt.getText("text:"));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
-        jLabel2.setText("Code:");
+        jLabel2.setText(ltt.getText("code:"));
 
         notesJTextArea.setColumns(20);
         notesJTextArea.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
@@ -168,7 +172,7 @@ private void init() {
         jScrollPane1.setViewportView(notesJTextArea);
 
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
-        jLabel3.setText("Notes:");
+        jLabel3.setText(ltt.getText("notes:"));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -210,7 +214,7 @@ private void init() {
         );
 
         saveJButton.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
-        saveJButton.setText("Save");
+        saveJButton.setText(ltt.getText("save"));
         saveJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveJButtonActionPerformed(evt);
@@ -218,10 +222,10 @@ private void init() {
         });
 
         savedJLabel.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
-        savedJLabel.setText("Saved");
+        savedJLabel.setText(ltt.getText("saved"));
 
         metaEditJButton.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
-        metaEditJButton.setText("Edit meta info");
+        metaEditJButton.setText(ltt.getText("edit meta info"));
         metaEditJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 metaEditJButtonActionPerformed(evt);
@@ -229,7 +233,7 @@ private void init() {
         });
 
         newLineJButton.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
-        newLineJButton.setText("New line");
+        newLineJButton.setText(ltt.getText("new line"));
         newLineJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newLineJButtonActionPerformed(evt);
@@ -299,7 +303,7 @@ private void init() {
             patterns.setNotes(selected, notesarray);
             
             if (textJTextField.getText().contains("=")) {
-                int result = JOptionPane.showConfirmDialog(this, "If you use = in a text, we don't guarantee that the translation will work correctly.", "Warning", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+                int result = JOptionPane.showConfirmDialog(this, ltt.getText("equal sign in pattern"), ltt.getText("warning"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
                 if (result == JOptionPane.OK_OPTION) {
                     patterns.setText(selected, textJTextField.getText());
                 }
@@ -320,7 +324,7 @@ private void init() {
         if (patterns.isSaved()) {
             exit();
         } else{
-            int result = JOptionPane.showConfirmDialog(this, "Pattern has unsaved changes. Do you want to discard this changes?", "Warning", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            int result = JOptionPane.showConfirmDialog(this, ltt.getText("unsaved pattern"), ltt.getText("warning"), JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             if (result == JOptionPane.YES_OPTION) {
                 exit();
             }
@@ -334,7 +338,7 @@ private void init() {
             updateSavedLabel();
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, e.getMessage(), ltt.getText("error"), JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_saveJButtonActionPerformed
 
@@ -364,7 +368,7 @@ private void init() {
     }
     
     private void updateTable() {
-        Object[] titles = {"Code", "Text"};
+        Object[] titles = {ltt.getText("code"), ltt.getText("text")};
         model = (AbstractTableModel) new DefaultTableModel(patterns.getModelArray(), titles) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -382,9 +386,9 @@ private void init() {
     
     private void updateSavedLabel() {
         if (patterns.isSaved()) {
-            savedJLabel.setText("Saved");
+            savedJLabel.setText(ltt.getText("saved"));
         } else {
-            savedJLabel.setText("Unsaved");
+            savedJLabel.setText(ltt.getText("unsaved"));
         }
     }
     

@@ -1,0 +1,74 @@
+; Author:Václav Křížek
+;.app name:Application name
+;.app name:Recommendation - don't translate, but if you want, you can...
+app name=LTT Edit
+;.edit existing translation:Text of the first button in the main menu
+edit existing translation=Edit an existing translation
+;.create new translation:Text of the second button in the main menu
+create new translation=Create a new translation
+;.edit existing pattern:Text of the third button in the main menu
+edit existing pattern=Edit an existing pattern
+;.create new pattern:Text of the fourth button in the main menu
+create new pattern=Create a new pattern
+;.ltt files:File type name in file chooser
+ltt files=LTT files
+;.lttp files:File type name in file chooser
+lttp files=LTTP files
+;.open:Title of file chooser
+open=Open
+;.save:Title of file chooser
+;.save:Save button text
+save=Save
+;.saved:Text of saved status label
+saved=Saved
+;.unsaved:Text of saved status label
+unsaved=Unsaved
+;.edit meta info:Edit meta info button text
+edit meta info=Edit meta information
+;.original:Title of one column of table
+original=Original
+;.translation:Title of one column of table
+translation=Translation
+notes:=Notes:
+original:=Original:
+translation:=Translation:
+;.update list:Text of update list button
+update list=Restore a list
+;.error:Just translation of the error word
+error=Error
+;.warning:Just translation of the warning word
+warning=Warning
+;.equal sign in translation:Warning text, when you put equal sign to translation
+equal sign in translation=Please use "{[opening curly brace]}[equal sign]{[closing curly brace]}" instead of "{[equal sign]}". The wildcard will be parsed as {[equal sign]}. If you use directly {[equal sign]} in the translation, we don't guarantee that the translation will work correctly.
+;.unsaved translation:Warning text, when you try close window with unsaved translation
+unsaved translation=There are unsaved changes in this translation. Do you want to discard these changes?
+language name:=Language:
+language code:=Language code:
+author:=Author:
+pattern file:=Pattern file:
+;.create:Text of the create button
+create=Create
+;.no file selected:Text of the no file selected label
+no file selected=No file selected
+;.select:Text of the select button
+select=Select
+;.translation already exists:Warning text, when you try create existing translation
+translation already exists=This translation already exists. If you continue, the old translation will be deleted. Check the old translation before creating a new one.
+;.all fields are not filled:Error message, when you don't fill all of the fields
+all fields are not filled=You must fill in all fields.
+;.new line:Text of the new line button
+new line=New row
+;.code:Title of one column of table
+code=Code
+;.text:Title of one column of table
+text=Text
+code:=Code:
+text:=Text:
+;.equal sign in pattern:Warning text, when you put equal sign to pattern
+equal sign in pattern=Please use "{[opening curly brace]}[equal sign]{[closing curly brace]}" instead of "{[equal sign]}". The wildcard will be parsed as {[equal sign]}. If you use directly {[equal sign]} in the pattern, we don't guarantee that the pattern will work correctly.
+;.unsaved pattern:Warning text, when you try close window with unsaved pattern
+unsaved pattern=There are unsaved changes in this pattern. Do you want to discard these changes?
+;.add line:Confirm button in new line dialog
+add line=Add row
+;.equal sign in code:Warning text, when you put equal sign to code
+equal sign in code=Please use "{[opening curly brace]}[equal sign]{[closing curly brace]}" instead of "{[equal sign]}". The wildcard will be parsed as {[equal sign]}. If you use directly {[equal sign]} in the code, we don't guarantee that the translation will work correctly.

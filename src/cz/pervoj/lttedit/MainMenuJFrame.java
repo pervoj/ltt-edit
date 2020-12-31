@@ -17,11 +17,10 @@
 package cz.pervoj.lttedit;
 
 import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatLightLaf;
+import cz.pervoj.lttlib.LTTGetter;
 import java.awt.Toolkit;
 import java.io.File;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -31,12 +30,20 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class MainMenuJFrame extends javax.swing.JFrame {
     
+    private LTTGetter ltt;
     private JFileChooser jfc = new JFileChooser();
 
     /**
      * Creates new form MainMenu
      */
     public MainMenuJFrame() {
+        try {
+            ltt = LTTInstancer.getInstance();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+        }
+        
         initComponents();
         
         setLocationRelativeTo(null);
@@ -58,14 +65,14 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         createLTTPJButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("LTT Edit");
+        setTitle(ltt.getText("app name"));
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("rsc/icons/lttedit.png")));
         setResizable(false);
 
         logoJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cz/pervoj/lttedit/rsc/icons/lttedit.png"))); // NOI18N
 
         editLTTJButton.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
-        editLTTJButton.setText("Edit existing translation");
+        editLTTJButton.setText(ltt.getText("edit existing translation"));
         editLTTJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editLTTJButtonActionPerformed(evt);
@@ -73,7 +80,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         });
 
         createLTTJButton.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
-        createLTTJButton.setText("Create new translation");
+        createLTTJButton.setText(ltt.getText("create new translation"));
         createLTTJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 createLTTJButtonActionPerformed(evt);
@@ -81,7 +88,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         });
 
         editLTTPJButton.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
-        editLTTPJButton.setText("Edit existing pattern");
+        editLTTPJButton.setText(ltt.getText("edit existing pattern"));
         editLTTPJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editLTTPJButtonActionPerformed(evt);
@@ -89,7 +96,7 @@ public class MainMenuJFrame extends javax.swing.JFrame {
         });
 
         createLTTPJButton.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
-        createLTTPJButton.setText("Create new pattern");
+        createLTTPJButton.setText(ltt.getText("create new pattern"));
         createLTTPJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 createLTTPJButtonActionPerformed(evt);
@@ -132,9 +139,10 @@ public class MainMenuJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void editLTTJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editLTTJButtonActionPerformed
-        jfc.setFileFilter(new FileNameExtensionFilter("LTT files", "ltt"));
+        jfc.setFileFilter(new FileNameExtensionFilter(ltt.getText("ltt files"), "ltt"));
         jfc.setCurrentDirectory(new File(System.getProperty("user.home")));
-        int result = jfc.showOpenDialog(this);
+        jfc.setSelectedFile(new File(""));
+        int result = jfc.showDialog(this, ltt.getText("open"));
         if (result == JFileChooser.APPROVE_OPTION) {
             File translation = jfc.getSelectedFile();
             new TranslationEditorJFrame(translation).setVisible(true);
@@ -153,9 +161,10 @@ public class MainMenuJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_createLTTJButtonActionPerformed
 
     private void editLTTPJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editLTTPJButtonActionPerformed
-        jfc.setFileFilter(new FileNameExtensionFilter("LTTP files", "lttp"));
+        jfc.setFileFilter(new FileNameExtensionFilter(ltt.getText("lttp files"), "lttp"));
         jfc.setCurrentDirectory(new File(System.getProperty("user.home")));
-        int result = jfc.showOpenDialog(this);
+        jfc.setSelectedFile(new File(""));
+        int result = jfc.showDialog(this, ltt.getText("open"));
         if (result == JFileChooser.APPROVE_OPTION) {
             new PatternEditorJFrame(jfc.getSelectedFile()).setVisible(true);
             dispose();
@@ -163,9 +172,10 @@ public class MainMenuJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_editLTTPJButtonActionPerformed
 
     private void createLTTPJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createLTTPJButtonActionPerformed
-        jfc.setFileFilter(new FileNameExtensionFilter("LTTP files", "lttp"));
+        jfc.setFileFilter(new FileNameExtensionFilter(ltt.getText("lttp files"), "lttp"));
         jfc.setCurrentDirectory(new File(System.getProperty("user.home")));
-        int result = jfc.showSaveDialog(this);
+        jfc.setSelectedFile(new File("pattern.lttp"));
+        int result = jfc.showDialog(this, ltt.getText("save"));
         if (result == JFileChooser.APPROVE_OPTION) {
             new PatternEditorJFrame(jfc.getSelectedFile(), true).setVisible(true);
             dispose();

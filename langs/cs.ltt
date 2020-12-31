@@ -1,0 +1,77 @@
+; Language:Czech
+; Code:cs
+; Author:Vojtěch Perník <v.pernik@centrum.cz>
+; Pattern:DEFAULT.lttp
+;.app name:Application name
+;.app name:Recommendation - don't translate, but if you want, you can...
+app name=
+;.edit existing translation:Text of the first button in the main menu
+edit existing translation=Upravit existující překlad
+;.create new translation:Text of the second button in the main menu
+create new translation=Vytvořit nový překlad
+;.edit existing pattern:Text of the third button in the main menu
+edit existing pattern=Upravit existující šablonu
+;.create new pattern:Text of the fourth button in the main menu
+create new pattern=Vytvořit novou šablonu
+;.ltt files:File type name in file chooser
+ltt files=Soubory LTT
+;.lttp files:File type name in file chooser
+lttp files=Soubory LTTP
+;.open:Title of file chooser
+open=Otevřít
+;.save:Title of file chooser
+;.save:Save button text
+save=Uložit
+;.saved:Text of saved status label
+saved=Uloženo
+;.unsaved:Text of saved status label
+unsaved=Neuloženo
+;.edit meta info:Edit meta info button text
+edit meta info=Upravit meta informace
+;.original:Title of one column of table
+original=Originál
+;.translation:Title of one column of table
+translation=Překlad
+notes:=Poznámky:
+original:=Originál:
+translation:=Překlad:
+;.update list:Text of update list button
+update list=Obnovit seznam
+;.error:Just translation of the error word
+error=Chyba
+;.warning:Just translation of the warning word
+warning=Varování
+;.equal sign in translation:Warning text, when you put equal sign to translation
+equal sign in translation=Prosím použijte raději "{[opening curly brace]}[equal sign]{[closing curly brace]}" místo "{[equal sign]}". Zástupný znak bude parsován jako {[equal sign]}. Pokud použijete přímo {[equal sign]} v překladu, nezaručujeme vám, že bude překlad fungovat správně.
+;.unsaved translation:Warning text, when you try close window with unsaved translation
+unsaved translation=V překladu se nacházejí neuložené změny. Chcete tyto změny zahodit?
+language name:=Název jazyka:
+language code:=Kód jazyka:
+author:=Autor:
+pattern file:=Soubor šablony:
+;.create:Text of the create button
+create=Vytvořit
+;.no file selected:Text of the no file selected label
+no file selected=Není vybrán žádný soubor
+;.select:Text of the select button
+select=Vybrat
+;.translation already exists:Warning text, when you try create existing translation
+translation already exists=Tento překlad již existuje. Pokud budete pokračovat, starý překlad bude smazán. Zkontrolujte starý překlad před vytvořením nového.
+;.all fields are not filled:Error message, when you don't fill all of the fields
+all fields are not filled=Musíte vyplnit všechna pole.
+;.new line:Text of the new line button
+new line=Nový řádek
+;.code:Title of one column of table
+code=Kód
+;.text:Title of one column of table
+text=Text
+code:=Kód:
+text:=Text:
+;.equal sign in pattern:Warning text, when you put equal sign to pattern
+equal sign in pattern=Prosím použijte raději "{[opening curly brace]}[equal sign]{[closing curly brace]}" místo "{[equal sign]}". Zástupný znak bude parsován jako {[equal sign]}. Pokud použijete přímo {[equal sign]} v šabloně, nezaručujeme vám, že bude šablona fungovat správně.
+;.unsaved pattern:Warning text, when you try close window with unsaved pattern
+unsaved pattern=V šabloně se nacházejí neuložené změny. Chcete tyto změny zahodit?
+;.add line:Confirm button in new line dialog
+add line=Přidat řádek
+;.equal sign in code:Warning text, when you put equal sign to code
+equal sign in code=Prosím použijte raději "{[opening curly brace]}[equal sign]{[closing curly brace]}" místo "{[equal sign]}". Zástupný znak bude parsován jako {[equal sign]}. Pokud použijete přímo {[equal sign]} v kódu, nezaručujeme vám, že bude překlad fungovat správně.

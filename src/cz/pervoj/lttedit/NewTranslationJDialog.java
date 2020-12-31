@@ -18,6 +18,7 @@ package cz.pervoj.lttedit;
 
 import cz.pervoj.lttedit.classes.TranslationController;
 import cz.pervoj.lttedit.classes.TranslationParser;
+import cz.pervoj.lttlib.LTTGetter;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -33,12 +34,18 @@ public class NewTranslationJDialog extends javax.swing.JDialog {
     private File translation;
     private TranslationController translations;
     private boolean created = false;
+    private LTTGetter ltt;
 
     /**
      * Creates new form NewTranslationJDialog
      */
     public NewTranslationJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        try {
+            ltt = LTTInstancer.getInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         setLocationRelativeTo(parent);
         initComponents();
     }
@@ -64,26 +71,26 @@ public class NewTranslationJDialog extends javax.swing.JDialog {
         createJButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("New translation");
+        setTitle(ltt.getText("create new translation"));
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
-        jLabel1.setText("Language name:");
+        jLabel1.setText(ltt.getText("language name:"));
 
         nameJTextField.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
 
         codeJTextField.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
-        jLabel2.setText("Language code:");
+        jLabel2.setText(ltt.getText("language code:"));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
-        jLabel3.setText("Author:");
+        jLabel3.setText(ltt.getText("author:"));
 
         authorJTextField.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
 
         selectJButton.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
-        selectJButton.setText("Select");
+        selectJButton.setText(ltt.getText("select"));
         selectJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selectJButtonActionPerformed(evt);
@@ -91,13 +98,13 @@ public class NewTranslationJDialog extends javax.swing.JDialog {
         });
 
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
-        jLabel4.setText("Pattern file:");
+        jLabel4.setText(ltt.getText("pattern file:"));
 
         fileJLabel.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
-        fileJLabel.setText("No file selected");
+        fileJLabel.setText(ltt.getText("no file selected"));
 
         createJButton.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
-        createJButton.setText("Create");
+        createJButton.setText(ltt.getText("create"));
         createJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 createJButtonActionPerformed(evt);
@@ -124,7 +131,7 @@ public class NewTranslationJDialog extends javax.swing.JDialog {
                             .addComponent(codeJTextField, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(authorJTextField, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(fileJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+                                .addComponent(fileJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(selectJButton)))))
                 .addContainerGap())
@@ -158,23 +165,23 @@ public class NewTranslationJDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void selectJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectJButtonActionPerformed
-        jfc.setFileFilter(new FileNameExtensionFilter("LTTP or LTT files", "lttp", "ltt"));
+        jfc.setFileFilter(new FileNameExtensionFilter(ltt.getText("lttp files"), "lttp"));
         jfc.setCurrentDirectory(new File(System.getProperty("user.home")));
-        int result = jfc.showOpenDialog(this);
+        int result = jfc.showDialog(this, ltt.getText("select"));
         if (result == JFileChooser.APPROVE_OPTION) {
             pattern = jfc.getSelectedFile();
             translation = new File(pattern.getParent() + "/" + codeJTextField.getText() + ".ltt");
             fileJLabel.setText(pattern.getName());
             
             if (translation.exists()) {
-                JOptionPane.showMessageDialog(this, "This translation already exists. If you continue, the old translation will be deleted. Check out old translation before creating new.");
+                JOptionPane.showMessageDialog(this, ltt.getText("translation already exists"), ltt.getText("warning"), JOptionPane.WARNING_MESSAGE);
             }
         }
     }//GEN-LAST:event_selectJButtonActionPerformed
 
     private void createJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createJButtonActionPerformed
         if (nameJTextField.getText() == "" || codeJTextField.getText() == "" || authorJTextField.getText() == "" || pattern == null || translation == null) {
-            JOptionPane.showMessageDialog(this, "You must fill all of the fields!", "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, ltt.getText("all fields are not filled"), ltt.getText("error"), JOptionPane.WARNING_MESSAGE);
         } else {
             try {
                 translations = TranslationParser.parseFile(pattern, translation, nameJTextField.getText(), codeJTextField.getText(), authorJTextField.getText());
@@ -182,7 +189,7 @@ public class NewTranslationJDialog extends javax.swing.JDialog {
                 dispose();
             } catch (Exception e) {
                 e.printStackTrace();
-                JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, e.getMessage(), ltt.getText("error"), JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_createJButtonActionPerformed

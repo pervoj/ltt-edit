@@ -16,6 +16,8 @@
  */
 package cz.pervoj.lttedit;
 
+import cz.pervoj.lttlib.LTTGetter;
+import java.io.File;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,12 +27,18 @@ import javax.swing.JOptionPane;
 public class PatternNewLineJDialog extends javax.swing.JDialog {
     
     private String code;
+    private LTTGetter ltt;
 
     /**
      * Creates new form PatternNewLineJDialog
      */
     public PatternNewLineJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        try {
+            ltt = LTTInstancer.getInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         initComponents();
         setLocationRelativeTo(parent);
     }
@@ -54,10 +62,10 @@ public class PatternNewLineJDialog extends javax.swing.JDialog {
         codeJTextField.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
-        jLabel1.setText("Code:");
+        jLabel1.setText(ltt.getText("code:"));
 
         addJButton.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
-        addJButton.setText("Add line");
+        addJButton.setText(ltt.getText("add line"));
         addJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addJButtonActionPerformed(evt);
@@ -95,7 +103,7 @@ public class PatternNewLineJDialog extends javax.swing.JDialog {
 
     private void addJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addJButtonActionPerformed
         if (codeJTextField.getText().contains("=")) {
-            int result = JOptionPane.showConfirmDialog(this, "If you use = in a code, we don't guarantee that the translation will work correctly.", "Warning", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+            int result = JOptionPane.showConfirmDialog(this, ltt.getText("equal sign in code"), "Warning", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
             if (result == JOptionPane.OK_OPTION) {
                 code = codeJTextField.getText();
                 dispose();

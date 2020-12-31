@@ -16,18 +16,27 @@
  */
 package cz.pervoj.lttedit;
 
+import cz.pervoj.lttlib.LTTGetter;
+import java.io.File;
+
 /**
  *
  * @author Vojtěch Perník <v.pernik@centrum.cz>
  */
 public class MetaEditJDialog extends javax.swing.JDialog {
     private String author;
+    private LTTGetter ltt;
 
     /**
      * Creates new form TranslationMetaJDialog
      */
     public MetaEditJDialog(java.awt.Frame parent, boolean modal, String author) {
         super(parent, modal);
+        try {
+            ltt = LTTInstancer.getInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         initComponents();
         setLocationRelativeTo(parent);
         
@@ -52,10 +61,10 @@ public class MetaEditJDialog extends javax.swing.JDialog {
         authorJTextField.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
-        jLabel3.setText("Author:");
+        jLabel3.setText(ltt.getText("author:"));
 
         saveJButton.setFont(new java.awt.Font("Dialog", 0, 13)); // NOI18N
-        saveJButton.setText("Save");
+        saveJButton.setText(ltt.getText("save"));
         saveJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveJButtonActionPerformed(evt);
@@ -73,7 +82,7 @@ public class MetaEditJDialog extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(authorJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)))
+                        .addComponent(authorJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
