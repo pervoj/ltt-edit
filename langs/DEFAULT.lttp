@@ -33,7 +33,7 @@ notes:=Notes:
 original:=Original:
 translation:=Translation:
 ;.update list:Text of update list button
-update list=Restore a list
+update list=Update list
 ;.error:Just translation of the error word
 error=Error
 ;.warning:Just translation of the warning word
